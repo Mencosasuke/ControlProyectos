@@ -6,6 +6,11 @@
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
+<?php 
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+	echo extension_loaded('pgsql') ? 'yes':'no';
+}
+?>
 <body>
 	<div class="wrap">
 		<div class="loginView">
@@ -17,7 +22,7 @@
 		    				<a class="image" href="#" title="Control de Proyectos">.</a>
 		    			</h1>
 					</div>
-					<form action="">
+					<form method="POST" action="login.php">
 						<div class="loginInput"><label for="txtUsuario">Usuario: </label><input type="text" id="txtUsuario" name="txtUsuario" placeholder="Nombre de Usuario"></div>
 						<div class="loginInput"><label for="txtPassword">Contraseña: </label><input type="text" id="txtPassword" name="txtPassword" placeholder="Contraseña"></div>
 						<div class="buttonContainer"><button type="submit" class="button">Ingresar</button>
