@@ -1,10 +1,17 @@
+<?php
+	// Verifica que exista una sesión de usuario iniciada, de lo contrario, redirige a login.php
+	session_start();
+	if(!isset($_SESSION["usuario"])){
+		header("Location: login.php");
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Control de Proyectos</title>
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<div class="wrap">
