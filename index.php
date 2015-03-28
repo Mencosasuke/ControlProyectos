@@ -6,7 +6,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<title>Control de Proyectos</title>
@@ -17,10 +17,10 @@
 	<div class="wrap">
 		<div class="header">
 			<div class="menu">
-				<div>Proyectos</div>
-				<div>Actividades</div>
-				<div>Usuarios</div>
-				<div>Roles</div>
+				<a href="#"><div>Proyectos</div></a>
+				<a href="#"><div>Actividades</div></a>
+				<a href=""><div>Perfil</div></a>
+				<a href="logout.php"><div>Salir</div></a>
 			</div>
 			
 			<div class="titulo">
@@ -28,7 +28,7 @@
 			</div>
 			<div class="logo">
 				<h1>
-    				<a class="image" href="#" title="Control de Proyectos">.</a>
+    				<a class="image" href="index.php" title="Control de Proyectos">.</a>
     			</h1>
 			</div>
 		</div>

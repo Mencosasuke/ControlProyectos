@@ -1,8 +1,15 @@
+<?php
+	// Verifica que exista una sesión de usuario iniciada y lo redirige a index.php
+	session_start();
+	if(isset($_SESSION["usuario"])){
+		header("Location: index.php");
+	}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>Control de Proyectos</title>
+	<title>Login - Control de Proyectos</title>
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -31,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		}else{
 			session_start();
 			//echo "<script type='text/javascript'>alert('$row[0]');</script>";
-			$_SESSION["usuario"] = $row[0];
+			$_SESSION["usuario"] = $row;
 			//echo "<script type='text/javascript'>alert('".$_SESSION["usuario"]."');</script>";
 			header("Location: index.php");
 		}
@@ -60,10 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		    			</h1>
 					</div>
 					<form method="POST" action="login.php">
-						<div class="loginInput"><label for="txtUsuario">Usuario: </label><input type="text" id="txtUsuario" name="txtUsuario" placeholder="Nombre de Usuario" value="<?php echo empty($_POST['txtUsuario']) ? '' : $_POST['txtUsuario']; ?>"></div>
-						<div class="loginInput"><label for="txtPassword">Contraseña: </label><input type="password" id="txtPassword" name="txtPassword" placeholder="Contraseña"></div>
+						<div class="loginInput"><label for="txtUsuario">Usuario: </label><input type="text" id="txtUsuario" name="txtUsuario" placeholder="Nombre de Usuario" value="<?php echo empty($_POST['txtUsuario']) ? '' : $_POST['txtUsuario']; ?>" required></div>
+						<div class="loginInput"><label for="txtPassword">Contraseña: </label><input type="password" id="txtPassword" name="txtPassword" placeholder="Contraseña" required></div>
 						<div class="buttonContainer"><button type="submit" class="button">Ingresar</button>
-						<a href="#" class="button">Registrar</a></div>
+						<a href="registro.php" class="button">Registrar</a></div>
 					</form>
 					<?php if(!$loginsucces){?><span class="spanError">Credenciales inválidas.</span><?php } ?>
 				</div>

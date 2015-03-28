@@ -23,21 +23,6 @@ class Conexion{
         return $this->conexion;
     }
 
-    /*
-    function selectDatabase() // selecting the database.
-    {
-        mysql_select_db($this->database);  //use php inbuild functions for select database
-
-        if(mysql_error()) // if error occured display the error message
-        {
-
-            echo "Cannot find the database ".$this->database;
-
-        }
-         echo "Database selected..";       
-    }
-    */
-
     // Cierra la conexión a la base de datos Postgres
     function close(){
         pg_close($this->conexion);
