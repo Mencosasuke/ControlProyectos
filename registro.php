@@ -39,20 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$nombre = $_POST['txtNombre'];
 		$apellido = $_POST['txtApellido'];
 
-		$row = $controlUsuario->registrar($link, $usuario, $password, $correo, $idRol, $nombre, $apellido);
-		if(!$row){
-			$loginsucces = false;
-		}else{
+		$loginsucces = !!$controlUsuario->registrar($link, $usuario, $password, $correo, $idRol, $nombre, $apellido);
+		
+		if($loginsucces){
 			header("Location: login.php");
 		}
-		
-		/*$query = 'select * from "Usuario"';
-		$result = pg_query($link, $query);
-
-		while ($row = pg_fetch_row($result)) {
-		  echo "idUsuario: ".$row[0]." usuario: ".$row[1]." correo: ".$row[3]." idRol: ".$row[4];
-		  echo "<br />";
-		}*/
 	}
 	$conexion->close();
 }
