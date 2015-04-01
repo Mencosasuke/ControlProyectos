@@ -3,7 +3,8 @@
 /***********************************************************************************************************************/
 
 body{
-	font-family: Geneva,Tahoma,Verdana,sans-serif;
+	/*font-family: Geneva,Tahoma,Verdana,sans-serif;*/
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	margin: 0px;
 	padding: 0px;
@@ -63,8 +64,9 @@ div.header div.logo h1 a.image{
 .menu>a>div{
 	text-align: center;
 	color: #F2F2F2;
+	font-family: 'Maven Pro', sans-serif;
 	font-weight: bold;
-	font-size : 0.8rem;
+	font-size : 1rem;
 	margin : 5px;
 	padding: 10px 5px;
 	height: 70px;
@@ -138,6 +140,67 @@ a{
 	text-decoration: none;
 	cursor: pointer;
 	color: inherit;
+}
+
+.MainCaption{
+	background-color: #446e89;
+	color: #F2F2F2;
+	font-family: 'Bree Serif', serif;
+	font-size: 1.6rem;
+	padding: 15px;
+}
+
+.MainTable{
+	width: 97%;
+	margin: 15px auto;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.MainHead th{
+	background-color: #DDD;
+	padding: 10px 20px;
+	font-family: Futura,"Trebuchet MS",Arial,sans-serif;
+	font-size: 1rem;
+	color: #303E49;
+}
+
+.MainTable td{
+	padding: 3px;
+	font-weight: bold;
+}
+
+.MainBody{
+	background-color: #FFF;
+}
+
+.SubTable{
+	width: 99%;
+	margin: 0px auto;
+	border-collapse: collapse;
+}
+
+.SubTable td{
+	font-weight: normal;
+	padding: 3px;
+}
+
+.SubHead{
+	background-color: #FFF;
+}
+
+.SubHead th{
+	background-color: #EEFFBB;
+	padding: 6px 20px;
+	font-family: Futura,"Trebuchet MS",Arial,sans-serif;
+	font-size: 0.9rem;
+	color: #a8641f;
+}
+
+#btnModificar, #btnEliminar{
+	font-size: 1rem;
+	margin: 2px;
+	color: #303E49;
 }
 
 /************************************************************************************************************************/
@@ -246,4 +309,9 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus{
 
 select{
 	width: 207px;
+}
+
+progress[value] {
+	cursor: pointer;
+	border: none;
 }

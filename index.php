@@ -25,6 +25,9 @@
 	<meta charset="UTF-8">
 	<title>Control de Proyectos</title>
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -47,34 +50,110 @@
 			</div>
 		</div>
 		<div class="content">
-			<table>
-				<thead>
+			<table class="MainTable">
+			<caption class="MainCaption">Proyectos Asignados a <?php echo $usuario ?></caption>
+<?php
+				$link = $conexion->open();
+				$result = $controlProyecto->obtenerProyectos($link, $idUsuario);
+				while($row = pg_fetch_assoc($result)){
+				//echo "<script type='text/javascript'>alert('".$row[1]."');</script>";
+?>
+				<thead class="MainHead">
 					<tr>
 						<th>ID Proyecto</th>
 						<th>Nombre</th>
-						<th>Inicio</th>
-						<th>Fin</th>
+						<th>Fecha Inicio</th>
+						<th>Fecha Fin</th>
 						<th>Encargado</th>
 						<th>Detalle</th>
 						<th>Progreso</th>
+						<th>-</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class="MainBody">
+					<tr>
+						<td><?php echo $row['idProyecto']; ?></td>
+						<td><?php echo $row['nombre']; ?></td>
+						<td><?php echo date_create($row['fechaInicio'])->format('d-m-Y'); ?></td>
+						<td><?php echo date_create($row['fechaFin'])->format('d-m-Y'); ?></td>
+						<td><?php echo $row['usuario']; ?></td>
+						<td><?php echo $row['detalle']; ?></td>
 <?php
-				//echo "<script type='text/javascript'>alert('".$_SESSION["usuario"][0]."');</script>";
-				$link = $conexion->open();
-				$result = $controlProyecto->obtenerProyectos($link, $idUsuario);
-				while($row = pg_fetch_row($result)){
+						$totalDias = date_create($row['fechaInicio'])->diff(date_create($row['fechaFin']));
+						$actualDias = date_create($row['fechaInicio'])->diff(date_create('now'));
+						$total = $totalDias->days + 1;
+						$actual = $actualDias->days + 1;
+						if($actual>=$total){
+							$porcentaje = 100;
+						}else{
+							$porcentaje = round(($actual * 100 / $total), 0, PHP_ROUND_HALF_UP);
+						}
 ?>
-				<tr>
-					<td><?php $row[0]; ?></td>
-					<td><?php $row[1]; ?></td>
-					<td><?php $row[2]; ?></td>
-					<td><?php $row[3]; ?></td>
-					<td><?php $row[5]; ?></td>
-					<td><?php $row[4]; ?></td>
-					<td>###PROGRESO###</td>
-				</tr>
+						<td><progress max="100" value="<?= $porcentaje ?>" title="<?= $porcentaje ?>%"></progress></td>
+						<td>
+							<a class="fa fa-pencil" id="btnModificar" title="Modificar Proyecto" href="modificarRegistro?id=<?= $row['idProyecto'] ?>&action=mp"></a>
+							<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Proyecto" href="modificarRegistro?id=<?= $row['idProyecto'] ?>&action=ep"></a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="8">
+							<table class="SubTable">
+								<thead class="SubHead">
+									<tr>
+										<th>No. Actividad</th>
+										<th>Nombre</th>
+										<th>Tipo</th>
+										<th>Fecha Inicio</th>
+										<th>Fecha Fin</th>
+										<th>Encargado</th>
+										<th>Detalle</th>
+										<th>Progreso</th>
+										<th>-</th>
+									</tr>
+								</thead>
+								<tbody class="SubBody">
+<?php
+								$result2 = $controlProyecto->obtenerActividadesProyecto($link, $row['idProyecto']);
+								while($row2 = pg_fetch_assoc($result2)){
+?>
+									<tr>
+										<td><?php echo $row2['numero']; ?></td>
+										<td><?php echo $row2['nombre']; ?></td>
+										<td><?php echo $row2['tipo']; ?></td>
+										<td><?php echo date_create($row2['fechaInicio'])->format('d-m-Y'); ?></td>
+										<td><?php echo date_create($row2['fechaFin'])->format('d-m-Y'); ?></td>
+										<td><?php echo $row2['usuario']; ?></td>
+										<td><?php echo $row2['descripcion']; ?></td>
+<?php
+										$totalDias = date_create($row2['fechaInicio'])->diff(date_create($row2['fechaFin']));
+										$total = $totalDias->days + 1;
+
+										if(date_create($row2['fechaInicio'])>date_create('now')){
+											$actual = 0;
+										}else{
+											$actualDias = date_create($row2['fechaInicio'])->diff(date_create('now'));
+											$actual = $actualDias->days + 1;
+											$porcentaje = 0;
+										}
+										if($actual>=$total){
+											$porcentaje = 100;
+										}else{
+											$porcentaje = round(($actual * 100 / $total), 0, PHP_ROUND_HALF_UP);
+										}
+?>
+										<td><progress max="100" value="<?= $porcentaje ?>" title="<?= $porcentaje ?>%"></progress></td>
+										<td>
+											<a class="fa fa-pencil" id="btnModificar" title="Modificar Actividad" href="modificarRegistro?id=<?= $row2['idActividad'] ?>&action=ma"></a>
+											<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Actividad" href="modificarRegistro?id=<?= $row2['idActividad'] ?>&action=ea"></a>
+										</td>
+									</tr>
+<?php
+								}
+?>
+								</tbody>
+							</table>
+						</td>
+					</tr>
 <?php
 				}
 ?>
