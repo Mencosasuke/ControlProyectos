@@ -58,14 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 					<div class="logo">
 						<h1>
 		    				<a class="image" href="#" title="Control de Proyectos">.</a>
-		    			</h1>
+		    			</h1>d
 					</div>
 					<form method="POST" action="registro.php">
 						<div class="loginInput"><label for="txtNombre">Nombres: </label><input type="text" id="txtNombre" name="txtNombre" placeholder="Nombres" required></div>
 						<div class="loginInput"><label for="txtApellido">Apellidos: </label><input type="text" id="txtApellido" name="txtApellido" placeholder="Apellidos" required></div>	
 						<div class="loginInput"><label for="txtUsuario">Usuario: </label><input type="text" id="txtUsuario" name="txtUsuario" placeholder="Nombre de Usuario" required></div>
 						<div class="loginInput"><label for="txtPassword">Contraseña: </label><input type="password" id="txtPassword" name="txtPassword" placeholder="Contraseña" required></div>
-						<div class="loginInput"><label for="txtCorreo">Correo: </label><input type="text" id="txtCorreo" name="txtCorreo" placeholder="Correo Electrónico" required></div>
+						<div class="loginInput"><label for="txtCorreo">Correo: </label><input type="email" id="txtCorreo" name="txtCorreo" placeholder="Correo Electrónico" required></div>
 						<div class="loginInput"><label for="txtRol">Rol: </label><select id="txtRol" name="txtRol">
 <?php
 						$link = $conexion->open();

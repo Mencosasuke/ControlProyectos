@@ -29,5 +29,19 @@ class ControlUsuario{
 		$result = pg_query($link, $query);
 		return $result;
 	}
+
+	// Obtener usuarios Project Manager
+	function obtenerUsuariosPM($link){
+		$query = 'select * from "Usuario" where "Usuario"."idRol" = 2;';
+		$result = pg_query($link, $query);
+		return $result;
+	}
+
+	// Obtener usuarios Project Engineer
+	function obtenerUsuariosPE($link){
+		$query = 'select * from "Usuario" where "Usuario"."idRol" = 3;';
+		$result = pg_query($link, $query);
+		return $result;
+	}
 }
 ?>

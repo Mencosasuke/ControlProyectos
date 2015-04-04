@@ -9,6 +9,7 @@ body{
 	margin: 0px;
 	padding: 0px;
 	background-color: #F8F8F8;
+	overflow: hidden;
 }
 
 .wrap{
@@ -56,7 +57,7 @@ div.header div.logo h1 a.image{
 	height: 100px;
 	margin: 0px;
 	padding: 10px 10px;	
-	width: 500px;
+	width: 380px;
 	font-size : 0;
 	float: left;
 }
@@ -65,8 +66,7 @@ div.header div.logo h1 a.image{
 	text-align: center;
 	color: #F2F2F2;
 	font-family: 'Maven Pro', sans-serif;
-	font-weight: bold;
-	font-size : 1rem;
+	font-size : 1.1rem;
 	margin : 5px;
 	padding: 10px 5px;
 	height: 70px;
@@ -93,10 +93,13 @@ div.header div.logo h1 a.image{
 }
 
 .content{
-	height: auto;
+	height: 500px;
 	margin: 0px;
 	padding: 0px;
 	background-color: #F8F8F8;
+	position: relative;
+	overflow: scroll;
+	overflow-x: hidden;
 }
 
 .button{
@@ -124,6 +127,7 @@ div.header div.logo h1 a.image{
 
 .buttonContainer{
 	margin-top: 10px;
+	text-align: center;
 }
 
 .spanError{
@@ -158,16 +162,30 @@ a{
 }
 
 .MainHead th{
-	background-color: #DDD;
+	background-color: #446e89;
 	padding: 10px 20px;
 	font-family: Futura,"Trebuchet MS",Arial,sans-serif;
 	font-size: 1rem;
-	color: #303E49;
+	color: #F2F2F2;
 }
 
 .MainTable td{
 	padding: 3px;
 	font-weight: bold;
+	font-size: 0.9rem;
+	background-color: #DDD;
+}
+
+.MainBody td:nth-child(6){
+	max-width: 150px;
+}
+
+.SubTable td:nth-child(6){
+	width: auto;
+}
+
+.SubTable td:nth-child(7){
+	max-width: 150px;
 }
 
 .MainBody{
@@ -183,6 +201,7 @@ a{
 .SubTable td{
 	font-weight: normal;
 	padding: 3px;
+	background-color: #FFF;
 }
 
 .SubHead{
@@ -197,10 +216,34 @@ a{
 	color: #a8641f;
 }
 
-#btnModificar, #btnEliminar{
+#btnModificar, #btnEliminar, #btnNuevoProyecto, #btnNuevaTarea{
 	font-size: 1rem;
 	margin: 2px;
 	color: #303E49;
+}
+
+#btnNuevoProyecto{
+	font-size: 1.3rem;
+	color: #F2F2F2;
+}
+
+#btnNuevaTarea{
+	font-size: 1.2rem;
+	color: #a8641f;
+}
+
+.content .loginInput{
+	text-align: right;
+	margin-top: 5px;
+	margin-right: 500px;
+}
+
+.content .loginInput input, .content .loginInput textarea, .content .loginInput select{
+	width: 300px;
+}
+
+.content .loginInput textarea{
+	vertical-align: top;
 }
 
 /************************************************************************************************************************/
@@ -292,7 +335,8 @@ div.loginView div.loginForm div.loginContent div.loginInput>input, div.loginView
 /***********************************************   ESTILOS FORMULARIOS   ***********************************************/
 /***********************************************************************************************************************/
 
-input[type="text"], input[type="password"], select{
+input[type="text"], input[type="password"], input[type="date"], input[type="email"], select, textarea{
+	resize: none;
 	font-size: 14px;
 	appearance: none;
 	border-radius: 3px;
@@ -301,7 +345,7 @@ input[type="text"], input[type="password"], select{
 	width: 180px;
 }
 
-input[type="text"]:focus, input[type="password"]:focus, select:focus{
+input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="email"]:focus, select:focus, textarea:focus{
 	outline: none;
 	border: solid 1px #dcdcdc;
 	box-shadow: 0 0 3px 1px #303E49;

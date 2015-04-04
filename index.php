@@ -35,7 +35,6 @@
 		<div class="header">
 			<div class="menu">
 				<a href="index.php"><div>Proyectos</div></a>
-				<a href="#"><div>Actividades</div></a>
 				<a href="#"><div>Perfil</div></a>
 				<a href="logout.php"><div>Salir</div></a>
 			</div>
@@ -52,12 +51,6 @@
 		<div class="content">
 			<table class="MainTable">
 			<caption class="MainCaption">Proyectos Asignados a <?php echo $usuario ?></caption>
-<?php
-				$link = $conexion->open();
-				$result = $controlProyecto->obtenerProyectos($link, $idUsuario);
-				while($row = pg_fetch_assoc($result)){
-				//echo "<script type='text/javascript'>alert('".$row[1]."');</script>";
-?>
 				<thead class="MainHead">
 					<tr>
 						<th>ID Proyecto</th>
@@ -67,9 +60,15 @@
 						<th>Encargado</th>
 						<th>Detalle</th>
 						<th>Progreso</th>
-						<th>-</th>
+						<th><a class="fa fa-plus-circle" id="btnNuevoProyecto" title="Nuevo Proyecto" href="modificarRegistro.php?action=np"></a></th>
 					</tr>
 				</thead>
+<?php
+				$link = $conexion->open();
+				$result = $controlProyecto->obtenerProyectos($link, $idUsuario);
+				while($row = pg_fetch_assoc($result)){
+				//echo "<script type='text/javascript'>alert('".$row[1]."');</script>";
+?>
 				<tbody class="MainBody">
 					<tr>
 						<td><?php echo $row['idProyecto']; ?></td>
@@ -91,8 +90,8 @@
 ?>
 						<td><progress max="100" value="<?= $porcentaje ?>" title="<?= $porcentaje ?>%"></progress></td>
 						<td>
-							<a class="fa fa-pencil" id="btnModificar" title="Modificar Proyecto" href="modificarRegistro?id=<?= $row['idProyecto'] ?>&action=mp"></a>
-							<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Proyecto" href="modificarRegistro?id=<?= $row['idProyecto'] ?>&action=ep"></a>
+							<a class="fa fa-pencil" id="btnModificar" title="Modificar Proyecto" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=mp"></a>
+							<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Proyecto" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=ep"></a>
 						</td>
 					</tr>
 					<tr>
@@ -108,7 +107,7 @@
 										<th>Encargado</th>
 										<th>Detalle</th>
 										<th>Progreso</th>
-										<th>-</th>
+										<th><a class="fa fa-plus-circle" id="btnNuevaTarea" title="Nueva Tarea" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=nt"></a></th>
 									</tr>
 								</thead>
 								<tbody class="SubBody">
@@ -143,8 +142,8 @@
 ?>
 										<td><progress max="100" value="<?= $porcentaje ?>" title="<?= $porcentaje ?>%"></progress></td>
 										<td>
-											<a class="fa fa-pencil" id="btnModificar" title="Modificar Actividad" href="modificarRegistro?id=<?= $row2['idActividad'] ?>&action=ma"></a>
-											<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Actividad" href="modificarRegistro?id=<?= $row2['idActividad'] ?>&action=ea"></a>
+											<a class="fa fa-pencil" id="btnModificar" title="Modificar Actividad" href="modificarRegistro.php?id=<?= $row2['idActividad'] ?>&action=ma"></a>
+											<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Actividad" href="modificarRegistro.php?id=<?= $row2['idActividad'] ?>&action=ea"></a>
 										</td>
 									</tr>
 <?php
@@ -156,6 +155,7 @@
 					</tr>
 <?php
 				}
+				$conexion->close();
 ?>
 				</tbody>
 			</table>

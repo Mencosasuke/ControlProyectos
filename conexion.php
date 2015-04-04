@@ -18,7 +18,7 @@ class Conexion{
         }else{
             $this->conexion = $link;
         }
-
+        
         // Devuelve la conexión establecida
         return $this->conexion;
     }
