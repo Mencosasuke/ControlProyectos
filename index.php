@@ -5,7 +5,7 @@
 		header("Location: login.php");
 	}
 
-	include ('Conexion.php'); // Incluye la clase conexión
+	include ('conexion.php'); // Incluye la clase conexión
 	include ('Controladores/ControlProyecto.php'); // Incluye la clase controlador de proyectos
 
 	$conexion = new Conexion(); // Instancia clase Conexión
