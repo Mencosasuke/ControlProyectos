@@ -10,6 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Login - Control de Proyectos</title>
+	<link href="Resources/favicon.ico" rel="icon" type="image/x-icon" />
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -37,9 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 			$loginsucces = false;
 		}else{
 			session_start();
-			//echo "<script type='text/javascript'>alert('$row[0]');</script>";
 			$_SESSION["usuario"] = $row;
-			//echo "<script type='text/javascript'>alert('".$_SESSION["usuario"]."');</script>";
 			header("Location: index.php");
 		}
 		

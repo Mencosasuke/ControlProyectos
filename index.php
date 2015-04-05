@@ -5,12 +5,6 @@
 		header("Location: login.php");
 	}
 
-	include ('conexion.php'); // Incluye la clase conexión
-	include ('Controladores/ControlProyecto.php'); // Incluye la clase controlador de proyectos
-
-	$conexion = new Conexion(); // Instancia clase Conexión
-	$controlProyecto = new ControlProyecto(); // Instancia clase ControlProyecto
-
 	// Se inicializan las variables de usuario necesarias
 	$idUsuario = $_SESSION["usuario"][0];
 	$usuario = $_SESSION["usuario"][1];
@@ -18,12 +12,26 @@
 	$apellido = $_SESSION["usuario"][3];
 	$rol = $_SESSION["usuario"][4];
 	$correo = $_SESSION["usuario"][5];
+	
+	$permiso = false;
+
+	if($rol != 3){
+		$permiso = true;
+	}
+
+	include ('conexion.php'); // Incluye la clase conexión
+	include ('Controladores/ControlProyecto.php'); // Incluye la clase controlador de proyectos
+
+	$conexion = new Conexion(); // Instancia clase Conexión
+	$controlProyecto = new ControlProyecto(); // Instancia clase ControlProyecto
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<title>Control de Proyectos</title>
+	<link href="Resources/favicon.ico" rel="icon" type="image/x-icon" />
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
@@ -60,12 +68,17 @@
 						<th>Encargado</th>
 						<th>Detalle</th>
 						<th>Progreso</th>
-						<th><a class="fa fa-plus-circle" id="btnNuevoProyecto" title="Nuevo Proyecto" href="modificarRegistro.php?action=np"></a></th>
+						<th><?php if($permiso){ ?><a class="fa fa-plus-circle" id="btnNuevoProyecto" title="Nuevo Proyecto" href="modificarRegistro.php?action=np"></a><?php } ?></th>
 					</tr>
 				</thead>
 <?php
 				$link = $conexion->open();
-				$result = $controlProyecto->obtenerProyectos($link, $idUsuario);
+				if(!$permiso){
+					$result = $controlProyecto->obtenerProyectosPE($link, $idUsuario);
+				}else{
+					$result = $controlProyecto->obtenerProyectos($link, $idUsuario);
+				}
+				
 				while($row = pg_fetch_assoc($result)){
 				//echo "<script type='text/javascript'>alert('".$row[1]."');</script>";
 ?>
@@ -90,8 +103,10 @@
 ?>
 						<td><progress max="100" value="<?= $porcentaje ?>" title="<?= $porcentaje ?>%"></progress></td>
 						<td>
+							<?php if($permiso){ ?>
 							<a class="fa fa-pencil" id="btnModificar" title="Modificar Proyecto" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=mp"></a>
 							<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Proyecto" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=ep"></a>
+							<?php } ?>
 						</td>
 					</tr>
 					<tr>
@@ -107,12 +122,16 @@
 										<th>Encargado</th>
 										<th>Detalle</th>
 										<th>Progreso</th>
-										<th><a class="fa fa-plus-circle" id="btnNuevaTarea" title="Nueva Tarea" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=nt"></a></th>
+										<th><?php if($permiso){ ?><a class="fa fa-plus-circle" id="btnNuevaTarea" title="Nueva Tarea" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=nt"></a><?php } ?></th>
 									</tr>
 								</thead>
 								<tbody class="SubBody">
 <?php
-								$result2 = $controlProyecto->obtenerActividadesProyecto($link, $row['idProyecto']);
+								if(!$permiso){
+									$result2 = $controlProyecto->obtenerActividadesProyectoPE($link, $row['idProyecto'], $idUsuario);
+								}else{
+									$result2 = $controlProyecto->obtenerActividadesProyecto($link, $row['idProyecto']);
+								}
 								while($row2 = pg_fetch_assoc($result2)){
 ?>
 									<tr>
@@ -142,8 +161,10 @@
 ?>
 										<td><progress max="100" value="<?= $porcentaje ?>" title="<?= $porcentaje ?>%"></progress></td>
 										<td>
+											<?php if($permiso){ ?>
 											<a class="fa fa-pencil" id="btnModificar" title="Modificar Actividad" href="modificarRegistro.php?id=<?= $row2['idActividad'] ?>&action=ma"></a>
 											<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Actividad" href="modificarRegistro.php?id=<?= $row2['idActividad'] ?>&action=ea"></a>
+											<?php } ?>
 										</td>
 									</tr>
 <?php

@@ -9,9 +9,23 @@ class ControlProyecto{
 		return $result;
 	}
 
+	// Función para obtener los proyectos a los que esta asignado un PE
+	function obtenerProyectosPE($link, $idUsuario){
+		$query = 'select distinct "Proyecto"."idProyecto", "Proyecto".nombre, "Proyecto"."fechaInicio", "Proyecto"."fechaFin", "Usuario".usuario, "Proyecto".detalle from "Proyecto", "Usuario", "Actividad" where "Actividad"."idUsuario" = '.$idUsuario.' and "Usuario"."idUsuario" = "Actividad"."idUsuario" AND "Proyecto"."idProyecto" = "Actividad"."idProyecto" order by "Proyecto"."idProyecto" asc;';
+		$result = pg_query($link, $query);
+		return $result;
+	}
+
 	// Función para obtener las actividades de cada proyecto
 	function obtenerActividadesProyecto($link, $idProyecto){
 		$query = 'select "Actividad".numero, "Actividad".nombre, "Actividad".tipo, "Actividad"."fechaInicio", "Actividad"."fechaFin", "Usuario".usuario, "Actividad".descripcion, "Actividad"."idActividad" from "Actividad", "Usuario" where "Usuario"."idUsuario" = "Actividad"."idUsuario" and "Actividad"."idProyecto" ='.$idProyecto.' order by "Actividad".numero asc;';
+		$result = pg_query($link, $query);
+		return $result;
+	}
+
+	// Función para obtener las actividades correspondientes a los PE
+	function obtenerActividadesProyectoPE($link, $idProyecto, $idUsuario){
+		$query = 'select "Actividad".numero, "Actividad".nombre, "Actividad".tipo, "Actividad"."fechaInicio", "Actividad"."fechaFin", "Usuario".usuario, "Actividad".descripcion, "Actividad"."idActividad" from "Actividad", "Usuario" where "Usuario"."idUsuario" = "Actividad"."idUsuario" and "Actividad"."idProyecto" ='.$idProyecto.' and "Actividad"."idUsuario" = '.$idUsuario.' order by "Actividad".numero asc;';
 		$result = pg_query($link, $query);
 		return $result;
 	}
