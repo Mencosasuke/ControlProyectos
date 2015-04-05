@@ -23,7 +23,7 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>Control de Proyectos</title>
+	<title>Control de Proyectos - Mantenimiento</title>
 	<link href="Resources/favicon.ico" rel="icon" type="image/x-icon" />
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
@@ -42,8 +42,7 @@
 		<div class="header">
 			<div class="menu">
 				<a href="index.php"><div>Proyectos</div></a>
-				<a href="#"><div>Actividades</div></a>
-				<a href="#"><div>Perfil</div></a>
+				<a href="perfil.php"><div>Perfil</div></a>
 				<a href="logout.php"><div>Salir</div></a>
 			</div>
 			
