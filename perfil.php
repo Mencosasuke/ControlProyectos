@@ -67,9 +67,9 @@
 				<div class="loginInput"><label for="txtUsuario">Usuario: </label><input type="text" id="txtUsuario" name="txtUsuario" placeholder="Nombre de Usuario" required value="<?=$usuario?>"></div>
 				<div class="loginInput"><label for="txtPassword">Contraseña: </label><input type="password" id="txtPassword" name="txtPassword" placeholder="Contraseña" required value="<?=$password?>"></div>
 				<div class="loginInput"><label for="txtCorreo">Correo: </label><input type="email" id="txtCorreo" name="txtCorreo" placeholder="Correo Electrónico" required value="<?=$correo?>"></div>
-				<div class="loginInput"><label for="txtRol">Rol: </label><select id="txtRol" name="txtRol">
+				<div class="loginInput"><label for="txtRol">Rol: </label><select style="width: 326px;" id="txtRol" name="txtRol">
 <?php
-				if($permiso){
+				/*if($permiso){
 					$result = $controlUsuario->obtenerRoles($link);
 					while ($row = pg_fetch_assoc($result)) {
 						if($row['idRol']!=$rol){
@@ -78,11 +78,11 @@
 							echo '<option value="'.$row['idRol'].'" selected="selected">'.$row['nombre'].'</option>';
 						}
 					}
-				}else{
+				}else{*/
 					$result = $controlUsuario->obtenerRol($link, $rol);
 					$row = pg_fetch_assoc($result);
 					echo '<option value="'.$row['idRol'].'" selected="selected">'.$row['nombre'].'</option>';
-				}
+				/*}*/
 ?>
 				</select></div>
 				<div class="buttonContainer"><button type="submit" class="button">Modificar</button>

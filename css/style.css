@@ -345,14 +345,14 @@ input[type="text"], input[type="password"], input[type="date"], input[type="emai
 	width: 180px;
 }
 
+select{
+	width: 207px;
+}
+
 input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="email"]:focus, select:focus, textarea:focus{
 	outline: none;
 	border: solid 1px #dcdcdc;
 	box-shadow: 0 0 3px 1px #303E49;
-}
-
-select{
-	width: 207px;
 }
 
 progress[value] {

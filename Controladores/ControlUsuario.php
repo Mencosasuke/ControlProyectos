@@ -39,7 +39,7 @@ class ControlUsuario{
 
 	// Obtener usuarios Project Manager
 	function obtenerUsuariosPM($link){
-		$query = 'select * from "Rol" where "Rol"."idRol" = 2;';
+		$query = 'select * from "Usuario" where "Usuario"."idRol" = 2;';
 		$result = pg_query($link, $query);
 		return $result;
 	}

@@ -67,7 +67,7 @@
 					<div class="loginInput"><label for="txtFechaInicio">Fecha Inicio: </label><input type="date" id="txtFechaInicio" name="txtFechaInicio" placeholder="Fecha inicio" required></div>	
 					<div class="loginInput"><label for="txtFechaFin">Fecha Fin: </label><input type="date" id="txtFechaFin" name="txtFechaFin" placeholder="Fecha fin" required></div>
 					<div class="loginInput"><label for="txtDetalle">Detalle: </label><textarea id="txtDetalle" name="txtDetalle" placeholder="Detalle" rows="10" required></textarea></div>
-					<div class="loginInput"><label for="txtUsuario">Encargado: </label><select id="txtUsuario" name="txtUsuario" required>
+					<div class="loginInput"><label for="txtUsuario">Encargado: </label><select style="width: 326px;" id="txtUsuario" name="txtUsuario" required>
 <?php
 					$result = $controlUsuario->obtenerUsuariosPM($link);
 
@@ -92,7 +92,7 @@
 					<div class="loginInput"><label for="txtFechaInicio">Fecha Inicio: </label><input type="date" id="txtFechaInicio" name="txtFechaInicio" placeholder="Fecha inicio" required></div>	
 					<div class="loginInput"><label for="txtFechaFin">Fecha Fin: </label><input type="date" id="txtFechaFin" name="txtFechaFin" placeholder="Fecha fin" required></div>
 					<div class="loginInput"><label for="txtDetalle">Detalle: </label><textarea id="txtDetalle" name="txtDetalle" placeholder="Detalle" rows="10" required></textarea></div>
-					<div class="loginInput"><label for="txtUsuario">Encargado: </label><select id="txtUsuario" name="txtUsuario" required>
+					<div class="loginInput"><label for="txtUsuario">Encargado: </label><select style="width: 326px;" id="txtUsuario" name="txtUsuario" required>
 <?php
 					$result = $controlUsuario->obtenerUsuariosPE($link);
 
@@ -117,7 +117,7 @@
 					<div class="loginInput"><label for="txtFechaInicio">Fecha Inicio: </label><input type="date" id="txtFechaInicio" name="txtFechaInicio" placeholder="Fecha inicio" required value="<?= $proyecto['fechaInicio'] ?>"></div>	
 					<div class="loginInput"><label for="txtFechaFin">Fecha Fin: </label><input type="date" id="txtFechaFin" name="txtFechaFin" placeholder="Fecha fin" required value="<?= $proyecto['fechaFin'] ?>"></div>
 					<div class="loginInput"><label for="txtDetalle">Detalle: </label><textarea id="txtDetalle" name="txtDetalle" placeholder="Detalle" rows="10" required><?= $proyecto['detalle'] ?></textarea></div>
-					<div class="loginInput"><label for="txtUsuario">Encargado: </label><select id="txtUsuario" name="txtUsuario" required>
+					<div class="loginInput"><label for="txtUsuario">Encargado: </label><select style="width: 326px;" id="txtUsuario" name="txtUsuario" required>
 <?php
 					$result = $controlUsuario->obtenerUsuariosPM($link);
 
@@ -152,7 +152,7 @@
 					<div class="loginInput"><label for="txtFechaInicio">Fecha Inicio: </label><input type="date" id="txtFechaInicio" name="txtFechaInicio" placeholder="Fecha inicio" required value="<?= $actividad['fechaInicio'] ?>"></div>	
 					<div class="loginInput"><label for="txtFechaFin">Fecha Fin: </label><input type="date" id="txtFechaFin" name="txtFechaFin" placeholder="Fecha fin" required value="<?= $actividad['fechaFin'] ?>"></div>
 					<div class="loginInput"><label for="txtDetalle">Detalle: </label><textarea id="txtDetalle" name="txtDetalle" placeholder="Detalle" rows="10" required><?= $actividad['descripcion'] ?></textarea></div>
-					<div class="loginInput"><label for="txtUsuario">Encargado: </label><select id="txtUsuario" name="txtUsuario" required>
+					<div class="loginInput"><label for="txtUsuario">Encargado: </label><select style="width: 326px;" id="txtUsuario" name="txtUsuario" required>
 <?php
 					$result = $controlUsuario->obtenerUsuariosPE($link);
 
