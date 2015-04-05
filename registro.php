@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 					<div class="logo">
 						<h1>
 		    				<a class="image" href="#" title="Control de Proyectos">.</a>
-		    			</h1>d
+		    			</h1>
 					</div>
 					<form method="POST" action="registro.php">
 						<div class="loginInput"><label for="txtNombre">Nombres: </label><input type="text" id="txtNombre" name="txtNombre" placeholder="Nombres" required></div>

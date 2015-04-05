@@ -42,9 +42,9 @@
 	<div class="wrap">
 		<div class="header">
 			<div class="menu">
-				<a href="index.php"><div>Proyectos</div></a>
-				<a href="perfil.php"><div>Perfil</div></a>
-				<a href="logout.php"><div>Salir</div></a>
+				<a href="index.php"><div><i class="fa fa-bar-chart"></i> Proyectos</div></a>
+				<a href="perfil.php"><div><i class="fa fa-user"></i> Perfil</div></a>
+				<a href="logout.php"><div><i class="fa fa-user-times"></i> Salir</div></a>
 			</div>
 			
 			<div class="titulo">
