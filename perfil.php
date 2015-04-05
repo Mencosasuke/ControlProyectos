@@ -32,7 +32,7 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>Control de Proyectos - Perfil</title>
+	<title>Perfil - Control de Proyectos</title>
 	<link href="Resources/favicon.ico" rel="icon" type="image/x-icon" />
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
