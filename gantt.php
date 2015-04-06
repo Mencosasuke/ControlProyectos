@@ -130,6 +130,8 @@
 			console.log(source);
 		$(".gantt").gantt({
 			source: source,
+			months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+			dow: ["D", "L", "M", "M", "J", "V", "S"],
 			scale: "days",
 			minScale: "hours",
 			maxScale: "months",
