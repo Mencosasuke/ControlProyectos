@@ -216,7 +216,7 @@ a{
 	color: #a8641f;
 }
 
-#btnModificar, #btnEliminar, #btnNuevoProyecto, #btnNuevaTarea{
+#btnModificar, #btnEliminar, #btnNuevoProyecto, #btnNuevaTarea, #btnGantt{
 	font-size: 1rem;
 	margin: 2px;
 	color: #303E49;
@@ -359,3 +359,7 @@ progress[value] {
 	cursor: pointer;
 	border: none;
 }
+
+/* gantt */
+.gantt .navigate .nav-slider-left,
+.gantt .navigate .nav-slider-right{ display : none; }

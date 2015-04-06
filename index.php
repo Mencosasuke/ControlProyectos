@@ -106,6 +106,7 @@
 							<?php if($permiso){ ?>
 							<a class="fa fa-pencil" id="btnModificar" title="Modificar Proyecto" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=mp"></a>
 							<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Proyecto" href="modificarRegistro.php?id=<?= $row['idProyecto'] ?>&action=ep"></a>
+							<a class="fa fa-bar-chart" id="btnGantt" title="Reporte Gantt" href="gantt.php?id=<?= $row['idProyecto'] ?>"></a>
 							<?php } ?>
 						</td>
 					</tr>
