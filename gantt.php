@@ -77,57 +77,41 @@
 	</div>
 
 <script>
-
-	var $proyectos = $(".Proyecto"), proyecto, proyectos = [];
-	$proyectos.each(function(index, item){
-		proyecto = JSON.parse($(item).attr('data-proyecto'));
-		proyecto.actividades = JSON.parse($(item).attr('data-actividades'));
-		proyectos.push(proyecto);
-	});
-
-	console.log(proyectos);
-
 	$(function() {
+		var $proyectos = $(".Proyecto"), proyecto, proyectos = [];
+		$proyectos.each(function(index, item){
+			proyecto = JSON.parse($(item).attr('data-proyecto'));
+			proyecto.actividades = JSON.parse($(item).attr('data-actividades'));
+			proyectos.push(proyecto);
+		});
 
-		"use strict";
+		var source = [];
 
-		var today = moment();
-		var andTwoHours = moment().add("hours",2);
-
-		var today_friendly = "/Date(" + today.valueOf() + ")/";
-		var next_friendly = "/Date(" + andTwoHours.valueOf() + ")/";
-
-		//{"idProyecto":"9","nombre":"Proyecto Prueba 1","fechaInicio":"2015-03-01","fechaFin":"2015-04-07","detalle":"Proyecto de prueba #1","idUsuario":"4"}
-			//descripcion: "Tarea #1 del Proyecto #1"fechaFin: "2015-03-12"fechaInicio: "2015-03-01"idActividad: "6"nombre: "TAREA 1 PROYECTO 1"numero: "1"tipo: "Tipo 1"usuario: "test"
-
-			var source = [];
-
-			proyectos.forEach(function(item, index){
-				source.push({
-					name : item.nombre,
-					desc : item.detalle,
-					values : [{
-						from : "/Date(" + item.fechaInicio + ")/",
-						to : "/Date("+item.fechaFin+")/",
-						label : item.nombre,
-						customClass: "ganttRed"
-					}]
-				});
-
-				source = source.concat(item.actividades.map(function(actividad){
-					return {
-						name : "",
-						desc : actividad.descripcion,
-						values : [{
-							from : "/Date(" + actividad.fechaInicio + ")/",
-							to : "/Date("+actividad.fechaFin+")/",
-							label : actividad.nombre
-						}]
-					};
-				}));
+		proyectos.forEach(function(item, index){
+			source.push({
+				name : item.nombre,
+				desc : item.detalle,
+				values : [{
+					from : "/Date(" + item.fechaInicio + ")/",
+					to : "/Date("+item.fechaFin+")/",
+					label : item.nombre,
+					customClass: "ganttRed"
+				}]
 			});
 
-			console.log(source);
+			source = source.concat(item.actividades.map(function(actividad){
+				return {
+					name : "",
+					desc : actividad.descripcion,
+					values : [{
+						from : "/Date(" + actividad.fechaInicio + ")/",
+						to : "/Date("+actividad.fechaFin+")/",
+						label : actividad.nombre
+					}]
+				};
+			}));
+		});
+
 		$(".gantt").gantt({
 			source: source,
 			months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
@@ -135,11 +119,16 @@
 			scale: "days",
 			minScale: "hours",
 			maxScale: "months",
-			navigate: "scroll"
+			navigate: "scroll",
+			onRender : function(){
+				var $labels = $(".row.desc .fn-label");
+				$labels.each(function(index, item){
+					console.log(item);
+					$(item).attr("title", $(item).text());
+				});
+			}
 		});
-
 	});
-
 </script>
 
 </body>
