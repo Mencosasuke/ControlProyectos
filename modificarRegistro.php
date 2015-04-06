@@ -30,6 +30,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<script src="js/jquery.min.js"></script>
+	<script src="js/moment.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -135,6 +136,7 @@
 					</select></div>
 					<div class="buttonContainer"><button type="submit" class="button" id="btnModificarProyecto">Modificar</button>
 					<a href="index.php" class="button">Cancelar</a></div>
+					<span id="textError" class="esconder spanErrorFecha spanError">Fechas fuera de rango.</span>
 				</form>
 <?php
 				break;
@@ -146,7 +148,11 @@
 			case 'ma':
 				$id = $_GET['id']; // Id de la actividad que se va a modificar
 				$actividad = pg_fetch_assoc($controlProyecto->obtenerActividad($link, $id));
+
+				$idProyecto = $_GET['idPro']; // Id del proyecto
+				$proyecto = pg_fetch_assoc($controlProyecto->obtenerProyecto($link, $idProyecto));
 ?>
+				<div class="Proyecto" data-proyecto='<?= json_encode($proyecto); ?>'></div>
 				<form method="POST" action="Controladores/ControlProyecto.php">
 					<input type="hidden" id="action" name="action" value="<?=$action?>">
 					<input type="hidden" id="txtId" name="txtId" value="<?=$id?>">
@@ -168,8 +174,9 @@
 					}
 ?>
 					</select></div>
-					<div class="buttonContainer"><button type="submit" class="button" id="btnModificarProyecto">Modificar</button>
+					<div class="buttonContainer"><button type="submit" class="button" id="btnModificarActividad">Modificar</button>
 					<a href="index.php" class="button">Cancelar</a></div>
+					<span id="textError" class="esconder spanErrorFecha spanError">Fechas fuera de rango.</span>
 				</form>				
 <?php
 				break;
@@ -190,11 +197,16 @@
 </html>
 
 <script>
-	$("#btnModificarProyecto").click(function(e){ 
-	    e.preventDefault();
-	    var fechaI = $("#txtFechaInicio").val();
-	    var fechaF = $("#txtFechaFin").val();
 
+	function calculofecha(propertyToGet, comparingFunction, last, next){
+		if(moment(last[propertyToGet])[comparingFunction](next[propertyToGet])){
+			return next;
+		}else{
+			return last;
+		}
+	}
+
+	function obtenerFechasLimiteProyecto(){
 	    var $proyectos = $(".Proyecto"), proyecto, proyectos = [];
 		$proyectos.each(function(index, item){
 			proyecto = JSON.parse($(item).attr('data-proyecto'));
@@ -202,34 +214,61 @@
 			proyectos.push(proyecto);
 		});
 
-		var fechasInicio = proyectos[0].actividades.reduce(function(last, next, index, array){
-			var arr = $.isArray(last) ? last : [].concat(last);
-			return arr.concat(next.fechaInicio);
+		var fechasInicio = proyectos[0].actividades.reduce(function(last, next){
+			return calculofecha.call(this, "fechaInicio","isAfter", last, next);
+		}).fechaInicio;
+
+		var fechasFin = proyectos[0].actividades.reduce(function(last, next, index, array){
+			return calculofecha.call(this, "fechaFin","isBefore", last, next);
+		}).fechaFin;
+
+		return {
+			fechaInicio : fechasInicio,
+			fechaFin : fechasFin
+		};
+	}
+
+	function obtenerFechasLimiteActividad(){
+	    var $proyectos = $(".Proyecto"), proyecto, proyectos = [];
+		$proyectos.each(function(index, item){
+			proyecto = JSON.parse($(item).attr('data-proyecto'));
+			proyectos.push(proyecto);
 		});
 
-		console.log(fechasInicio);
+		var fechasInicio = proyectos[0].fechaInicio;
+		var fechasFin = proyectos[0].fechaFin;
 
-		var fechasI = [];
+		return {
+			fechaInicio : fechasInicio,
+			fechaFin : fechasFin
+		};
+	}
 
-		proyectos.forEach(function(item, index){
-			fechasI.push(item.fechaInicio)
-		});
+	$("#btnModificarProyecto").click(function(e){
 
+	    var fechaI = $("#txtFechaInicio").val();
+	    var fechaF = $("#txtFechaFin").val();
+	    //console.log(fechaI, fechaF);
+	    var limites = obtenerFechasLimiteProyecto();
+	    //console.log(limites.fechaInicio);
 
-	   	//alert(nom + " " + fechaI + " " + fechaF + " " + det  + " " + enc + " " + li);
-	   	/*$.ajax({url: 'Controladores/ControlProyecto.php',
-				data: {nombre : nom, fechaInicio : fechaI, fechaFin : fechaF, detalle : det, encargado : enc, link : li, id : idPro},
-				type: 'post',
-				complete: function(output) {
-					alert(output);
-				}
-		});
-		$.post(
-			"Controladores/ControlProyecto.php",
-			{nombre : nom, fechaInicio : fechaI, fechaFin : fechaF, detalle : det, encargado : enc, link : li, id : idPro},
-			function(data){
-				alert(data);
-			}
-		);*/
+    	if(moment(fechaI).isAfter(limites.fechaInicio) || moment(fechaF).isBefore(limites.fechaFin)){
+    		e.preventDefault();
+    		$("#textError").removeClass("esconder");
+    	}
+	});
+
+	$("#btnModificarActividad").click(function(e){
+
+	    var fechaI = $("#txtFechaInicio").val();
+	    var fechaF = $("#txtFechaFin").val();
+	    //console.log(fechaI, fechaF);
+	    var limites = obtenerFechasLimiteActividad();
+	    //console.log(limites);
+
+    	if(moment(fechaI).isBefore(limites.fechaInicio) || moment(fechaF).isAfter(limites.fechaFin)){
+    		e.preventDefault();
+    		$("#textError").removeClass("esconder");
+    	}
 	});
 </script>

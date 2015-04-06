@@ -163,7 +163,7 @@
 										<td><progress max="100" value="<?= $porcentaje ?>" title="<?= $porcentaje ?>%"></progress></td>
 										<td>
 											<?php if($permiso){ ?>
-											<a class="fa fa-pencil" id="btnModificar" title="Modificar Actividad" href="modificarRegistro.php?id=<?= $row2['idActividad'] ?>&action=ma"></a>
+											<a class="fa fa-pencil" id="btnModificar" title="Modificar Actividad" href="modificarRegistro.php?id=<?= $row2['idActividad'] ?>&action=ma&idPro=<?= $row['idProyecto'] ?>"></a>
 											<a class="fa fa-trash-o" id="btnEliminar" title="Eliminar Actividad" href="modificarRegistro.php?id=<?= $row2['idActividad'] ?>&action=ea"></a>
 											<?php } ?>
 										</td>

@@ -92,8 +92,8 @@
 				name : item.nombre,
 				desc : item.detalle,
 				values : [{
-					from : "/Date(" + item.fechaInicio + ")/",
-					to : "/Date("+item.fechaFin+")/",
+					from : moment(item.fechaInicio).add(1, 'days').format('YYYY-MM-DD'),
+					to : moment(item.fechaFin).add(1, 'days').format('YYYY-MM-DD'),
 					label : item.nombre,
 					customClass: "ganttRed"
 				}]
@@ -104,8 +104,8 @@
 					name : "",
 					desc : actividad.descripcion,
 					values : [{
-						from : "/Date(" + actividad.fechaInicio + ")/",
-						to : "/Date("+actividad.fechaFin+")/",
+						from : moment(actividad.fechaInicio).add(1, 'days').format('YYYY-MM-DD'),
+						to : moment(actividad.fechaFin).add(1, 'days').format('YYYY-MM-DD'),
 						label : actividad.nombre
 					}]
 				};
