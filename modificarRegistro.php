@@ -29,12 +29,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
-	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-	<script>
-		webshims.setOptions('forms-ext', {types: 'date'});
-		webshims.polyfill('forms forms-ext');
-	</script>
+	<script src="js/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -109,7 +104,15 @@
 			case 'mp':
 				$id = $_GET['id']; // Id del proyecto-actividad a modificar-eliminar
 				$proyecto = pg_fetch_assoc($controlProyecto->obtenerProyecto($link, $id));
+
+				$result2 = $controlProyecto->obtenerActividadesProyecto($link, $id);
+				$actividades =  array();
+
+				while($row2 = pg_fetch_assoc($result2)){
+					$actividades[] = $row2;
+				}
 ?>
+				<div class="Proyecto" data-proyecto='<?= json_encode($proyecto); ?>' data-actividades='<?= json_encode($actividades); ?>'></div>
 				<form method="POST" action="Controladores/ControlProyecto.php">
 					<input type="hidden" id="action" name="action" value="<?=$action?>">
 					<input type="hidden" id="txtId" name="txtId" value="<?=$id?>">
@@ -186,25 +189,42 @@
 </body>
 </html>
 
-<script>/*
+<script>
 	$("#btnModificarProyecto").click(function(e){ 
 	    e.preventDefault();
-	    var nom = $("#txtNombre").val();
 	    var fechaI = $("#txtFechaInicio").val();
 	    var fechaF = $("#txtFechaFin").val();
-	    var det = $("#txtDetalle").val();
-	    var enc = $("#txtUsuario").val();
-	    var li = "<?php echo $link; ?>";
-	    var idPro = "<?php echo $id; ?>";
+
+	    var $proyectos = $(".Proyecto"), proyecto, proyectos = [];
+		$proyectos.each(function(index, item){
+			proyecto = JSON.parse($(item).attr('data-proyecto'));
+			proyecto.actividades = JSON.parse($(item).attr('data-actividades'));
+			proyectos.push(proyecto);
+		});
+
+		var fechasInicio = proyectos[0].actividades.reduce(function(last, next, index, array){
+			var arr = $.isArray(last) ? last : [].concat(last);
+			return arr.concat(next.fechaInicio);
+		});
+
+		console.log(fechasInicio);
+
+		var fechasI = [];
+
+		proyectos.forEach(function(item, index){
+			fechasI.push(item.fechaInicio)
+		});
+
+
 	   	//alert(nom + " " + fechaI + " " + fechaF + " " + det  + " " + enc + " " + li);
-	   	$.ajax({url: 'Controladores/ControlProyecto.php',
+	   	/*$.ajax({url: 'Controladores/ControlProyecto.php',
 				data: {nombre : nom, fechaInicio : fechaI, fechaFin : fechaF, detalle : det, encargado : enc, link : li, id : idPro},
 				type: 'post',
 				complete: function(output) {
 					alert(output);
 				}
 		});
-		/*$.post(
+		$.post(
 			"Controladores/ControlProyecto.php",
 			{nombre : nom, fechaInicio : fechaI, fechaFin : fechaF, detalle : det, encargado : enc, link : li, id : idPro},
 			function(data){
